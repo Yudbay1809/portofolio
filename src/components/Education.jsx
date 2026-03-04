@@ -1,49 +1,55 @@
-import { EDUCATION } from "../constants";
 import { motion } from "framer-motion";
+import { EDUCATION } from "../constants";
 
 export const Education = () => {
-    return (
-        <div className=" border-b border-neutral-900 pb-20">
-            <motion.h2
-            whileInView={{ opacity: 1, y: 0}}
-            initial={{ opacity: 0, y: -100}}
-            transition={{ duration: 0.5 }}
-            className=" my-10 text-center text-4xl">Education
-            </motion.h2>
-            <div>
-          {EDUCATION.map((education, index) => (
-            <div key={index} className=" mb-8 flex flex-wrap lg:justify-center">
-              <motion.div 
-                whileInView={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: -100 }}
-                transition={{ duration: 1 }}
-                className=" w-full lg:w-1/2">
-                <p className=" mb-2 text-sm text-neutral-400">
-                {education.year}
-                </p>
-              </motion.div>
-              <motion.div 
-                whileInView={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: 100 }}
-                transition={{ duration: 1 }}
-                className=" w-full max-w-xl lg:w-3/4">
-                <h6 className=" text-sm font-semibold">
-                {education.place} 
-                </h6>
-                <p className=" mb-2 text-sm text-neutral-400">
-                {education.description}
-                </p>
-                {education.technologies.map((tech, index) => (
-                  <span key={index} className=" mr-2 mt-4 rounded bg-neutral-900 px-2 py-2 text-sm font-medium text-white">
-                  {tech}
-                  </span>
+  return (
+    <section id="education" className="py-8 sm:py-10">
+      <div className="section-shell">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          className="section-title"
+        >
+          Education Journey
+        </motion.h2>
+
+        <div className="relative mt-8 space-y-6 before:absolute before:left-2 before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-white/20 sm:before:left-3">
+          {EDUCATION.map((item, index) => (
+            <motion.article
+              key={index}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: index * 0.06 }}
+              whileHover={{ y: -3 }}
+              className="relative ml-8 rounded-2xl border border-white/15 bg-slate-900/60 p-5"
+            >
+              <motion.span
+                className="absolute -left-[2.05rem] top-6 h-3 w-3 rounded-full border-2 border-slate-950 bg-amber-300"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.15 }}
+              />
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-200">{item.year}</p>
+              <h3 className="mt-2 text-lg font-semibold text-slate-100">{item.place}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {item.technologies.map((tech) => (
+                  <motion.span
+                    key={tech}
+                    whileHover={{ y: -2 }}
+                    className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-200"
+                  >
+                    {tech}
+                  </motion.span>
                 ))}
-              </motion.div>
-            </div>
+              </div>
+            </motion.article>
           ))}
         </div>
-        </div>
-    )
-}
+      </div>
+    </section>
+  );
+};
 
-export default Education
+export default Education;
