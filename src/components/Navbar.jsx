@@ -17,7 +17,7 @@ const menuItems = [
 const socials = [
   { href: "https://www.linkedin.com/in/yudhabayuprastyo/", icon: FaLinkedin, label: "LinkedIn" },
   { href: "https://github.com/Yudbay1809", icon: FaGithub, label: "GitHub" },
-  { href: "https://www.instagram.com/la._chesism/", icon: FaInstagram, label: "Instagram" },
+  { href: "https://www.instagram.com/yudbayyy/", icon: FaInstagram, label: "Instagram" },
   { href: "https://wa.me/6285731643104", icon: FaWhatsapp, label: "WhatsApp" },
 ];
 
