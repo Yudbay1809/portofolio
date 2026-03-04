@@ -1,6 +1,6 @@
 # Portfolio - Yudha Bayu Prastyo
 
-Portfolio website modern berbasis React + Vite dengan animasi interaktif, mode day/night, navigasi cinematic, dan deploy otomatis ke GitHub Pages.
+Portfolio website modern berbasis React + Vite dengan animasi interaktif, mode day/night, dan navigasi cinematic.
 
 ## Live
 - Domain: https://yudbay.dev
@@ -11,20 +11,15 @@ Portfolio website modern berbasis React + Vite dengan animasi interaktif, mode d
 - Tailwind CSS
 - Framer Motion
 - React Icons
-- gh-pages
+- Vercel
 
 ## Fitur Utama
 - UI modern dengan visual storytelling.
 - Mode Day/Night (tersimpan di localStorage).
-- Animasi premium:
-  - Intro loader.
-  - Parallax depth antar section.
-  - Smooth reveal transitions.
-  - Typewriter tagline.
-  - Count-up stats.
-  - Cinematic transition saat navigasi.
+- Animasi premium: intro loader, parallax depth, reveal transition, typewriter, count-up stats.
+- Cinematic transition saat navigasi + active section highlight.
 - Section progress dot navigator (desktop besar).
-- Scroll per section (desktop tinggi layar cukup).
+- Scroll per section untuk desktop tinggi layar cukup.
 - Project filter berdasarkan teknologi.
 - Contact action:
   - Klik location -> Google Maps.
@@ -36,6 +31,7 @@ Portfolio website modern berbasis React + Vite dengan animasi interaktif, mode d
 - `src/components/` -> komponen UI per section.
 - `src/constants/index.js` -> konten data portfolio.
 - `src/index.css` -> global style, theme, animation utilities.
+- `vercel.json` -> konfigurasi build/output Vercel.
 - `QA_BREAKPOINT_CHECKLIST.md` -> checklist QA per breakpoint.
 - `QA_SMOKE_TEST.md` -> smoke test 2-3 menit sebelum deploy.
 
@@ -51,30 +47,32 @@ npm run dev      # jalankan mode development
 npm run lint     # cek lint
 npm run build    # build production
 npm run preview  # preview hasil build
-npm run deploy   # deploy ke GitHub Pages
+npm run deploy   # deploy ke GitHub Pages (opsional legacy)
 ```
 
-## Deploy GitHub Pages
-Konfigurasi sudah aktif di project ini:
-- `homepage` pada `package.json` mengarah ke:
-  `https://yudbay.dev`
-- `vite.config.js` menggunakan:
-  `base: "/"`
-- Script deploy:
-  - `predeploy`: `npm run build`
-  - `deploy`: `gh-pages -d dist`
+## Deploy ke Vercel
+### Cara 1: via GitHub integration (disarankan)
+1. Import repo `Yudbay1809/portofolio` di Vercel.
+2. Pastikan setting:
+   - Framework Preset: `Vite`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. Deploy.
 
-Deploy manual:
+### Cara 2: via CLI
 ```bash
-npm run deploy
+npx vercel
+npx vercel --prod
 ```
+
+## Custom Domain di Vercel
+1. Buka project di Vercel -> `Settings` -> `Domains`.
+2. Tambahkan `yudbay.dev` dan `www.yudbay.dev`.
+3. Ikuti DNS record yang diminta Vercel sampai status `Valid`.
+4. SSL/HTTPS akan aktif otomatis.
 
 ## Catatan
 Jika menjalankan command npm lewat PowerShell dan muncul error execution policy, gunakan:
 ```powershell
 cmd /c npm run <script>
-```
-Contoh:
-```powershell
-cmd /c npm run deploy
 ```
