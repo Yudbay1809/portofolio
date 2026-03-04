@@ -3,7 +3,7 @@
 Portfolio website modern berbasis React + Vite dengan animasi interaktif, mode day/night, navigasi cinematic, dan deploy otomatis ke GitHub Pages.
 
 ## Live
-- GitHub Pages: https://yudbay1809.github.io/react-porto
+- Domain: https://yudbay.dev
 
 ## Tech Stack
 - React 18
@@ -57,9 +57,9 @@ npm run deploy   # deploy ke GitHub Pages
 ## Deploy GitHub Pages
 Konfigurasi sudah aktif di project ini:
 - `homepage` pada `package.json` mengarah ke:
-  `https://yudbay1809.github.io/react-porto`
+  `https://yudbay.dev`
 - `vite.config.js` menggunakan:
-  `base: "/react-porto"`
+  `base: "/"`
 - Script deploy:
   - `predeploy`: `npm run build`
   - `deploy`: `gh-pages -d dist`
