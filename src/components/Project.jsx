@@ -2,6 +2,30 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { PROJECTS } from "../constants";
 
+const getProjectTags = (project) => {
+  if (Array.isArray(project.tags) && project.tags.length > 0) {
+    return project.tags;
+  }
+
+  const techs = project.technologies.map((tech) => tech.toLowerCase());
+  const tags = new Set();
+
+  if (techs.some((tech) => ["react", "html", "css", "bootstrap", "tailwind"].includes(tech))) {
+    tags.add("Frontend");
+  }
+  if (techs.some((tech) => ["php", "fastapi", "sqlalchemy", "node.js", "node", "python"].includes(tech))) {
+    tags.add("Backend");
+  }
+  if (techs.some((tech) => ["android", "android studio", "flutter", "dart"].includes(tech))) {
+    tags.add("Mobile");
+  }
+  if (techs.some((tech) => ["desktop", "windows"].includes(tech))) {
+    tags.add("Desktop");
+  }
+
+  return Array.from(tags);
+};
+
 const Project = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -96,6 +120,20 @@ const Project = () => {
                 <div className="p-5">
                   <h3 className="text-xl font-bold text-slate-100">{project.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-300">{project.description}</p>
+
+                  {getProjectTags(project).length > 0 ? (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {getProjectTags(project).map((tag) => (
+                        <span
+                          key={`${project.title}-${tag}`}
+                          className="inline-flex items-center rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.technologies.map((tech) => (
                       <motion.span
@@ -107,6 +145,63 @@ const Project = () => {
                       </motion.span>
                     ))}
                   </div>
+
+                  {(project.demoUrl || project.repoUrl) && (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {project.demoUrl ? (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-1.5 text-xs font-semibold text-cyan-100 transition hover:border-cyan-300/60 hover:bg-cyan-300/20"
+                        >
+                          Live Demo
+                        </a>
+                      ) : null}
+                      {project.repoUrl ? (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-amber-300/60 hover:bg-amber-300/20 hover:text-amber-200"
+                        >
+                          View Repo
+                        </a>
+                      ) : null}
+                    </div>
+                  )}
+
+                  {project.caseStudy &&
+                    (project.caseStudy.problem ||
+                      project.caseStudy.role ||
+                      project.caseStudy.solution ||
+                      project.caseStudy.result) && (
+                      <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+                        <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Case Study</p>
+                        <ul className="mt-3 space-y-2">
+                          {project.caseStudy.problem && (
+                            <li>
+                              <span className="font-semibold text-slate-200">Problem:</span> {project.caseStudy.problem}
+                            </li>
+                          )}
+                          {project.caseStudy.role && (
+                            <li>
+                              <span className="font-semibold text-slate-200">Role:</span> {project.caseStudy.role}
+                            </li>
+                          )}
+                          {project.caseStudy.solution && (
+                            <li>
+                              <span className="font-semibold text-slate-200">Solution:</span> {project.caseStudy.solution}
+                            </li>
+                          )}
+                          {project.caseStudy.result && (
+                            <li>
+                              <span className="font-semibold text-slate-200">Result:</span> {project.caseStudy.result}
+                            </li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </motion.article>
             ))}

@@ -5,6 +5,9 @@ import project4 from "../assets/projects/project-4.jpg";
 import project5 from "../assets/projects/project-5.png";
 import project6 from "../assets/projects/project-6.png";
 import project7 from "../assets/projects/project-7.png";
+import weddingInvitation from "../assets/projects/wedding-invitation.svg";
+import supplierGwen from "../assets/projects/supplier-gwen.svg";
+import gwenApp from "../assets/projects/gwen-app.svg";
 
 export const HERO_CONTENT = `Saya Yudha Bayu Prastyo, lulusan Teknik Informatika yang berfokus pada pengembangan aplikasi web dan dukungan sistem TI. Saya menikmati proses mengubah kebutuhan bisnis menjadi solusi digital yang efisien, mudah digunakan, dan terukur.`;
 
@@ -45,6 +48,15 @@ export const PROJECTS = [
     description:
       "Aplikasi manajemen operasional kafe untuk pengelolaan pesanan, inventaris, staf, dan pelaporan penjualan agar proses bisnis lebih efisien.",
     technologies: ["HTML", "CSS", "PHP", "MySQL"],
+    tags: ["Frontend", "Backend"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "Poliklinik",
@@ -52,6 +64,15 @@ export const PROJECTS = [
     description:
       "Aplikasi manajemen klinik untuk alur janji temu, rekam medis, penjadwalan staf, dan proses administrasi layanan pasien.",
     technologies: ["HTML", "CSS", "PHP", "MySQL"],
+    tags: ["Frontend", "Backend"],
+    demoUrl: "",
+    repoUrl: "https://github.com/Yudbay1809/BK-poli",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "Loviso Bangkit Capstone Project",
@@ -59,6 +80,15 @@ export const PROJECTS = [
     description:
       "Aplikasi mobile Location Advisor untuk mendukung eksposur UMKM dan komoditas regional agar lebih mudah diakses oleh masyarakat luas.",
     technologies: ["HTML", "CSS", "React", "Bootstrap"],
+    tags: ["Frontend"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "Automatic License Plate Recognition",
@@ -66,6 +96,15 @@ export const PROJECTS = [
     description:
       "Aplikasi Android berbasis ALPR untuk mendukung pemantauan lalu lintas, manajemen parkir, dan kebutuhan pelacakan kendaraan secara otomatis.",
     technologies: ["Java", "Python", "Android Studio", "Jupyter Notebook", "Firebase"],
+    tags: ["Mobile", "Backend"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "Digital Signage Player",
@@ -73,6 +112,15 @@ export const PROJECTS = [
     description:
       "Aplikasi Flutter digital signage player dengan fitur playlist sync, caching, dan realtime update untuk menampilkan konten secara dinamis pada perangkat kiosk.",
     technologies: ["Flutter", "Dart", "Android", "WebSocket"],
+    tags: ["Mobile"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "CMS Signage Desktop",
@@ -80,6 +128,15 @@ export const PROJECTS = [
     description:
       "Aplikasi desktop Flutter untuk manajemen konten digital signage, termasuk playlist, schedule, dan device management berbasis Windows.",
     technologies: ["Flutter", "Dart", "Desktop", "Windows"],
+    tags: ["Desktop"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
   },
   {
     title: "Digital Signage Backend API",
@@ -87,6 +144,63 @@ export const PROJECTS = [
     description:
       "Backend API berbasis FastAPI untuk digital signage: manajemen media, playlists, schedules, devices, dan realtime updates dengan WebSocket.",
     technologies: ["Python", "FastAPI", "SQLAlchemy", "WebSocket"],
+    tags: ["Backend"],
+    demoUrl: "",
+    repoUrl: "",
+    caseStudy: {
+      problem: "",
+      role: "",
+      solution: "",
+      result: "",
+    },
+  },
+  {
+    title: "Wedding Invitation",
+    image: weddingInvitation,
+    description:
+      "Platform undangan pernikahan digital dengan landing page, autentikasi, dashboard, dan halaman undangan.",
+    technologies: ["Next.js", "Supabase", "Tailwind CSS"],
+    tags: ["Frontend", "Backend"],
+    demoUrl: "",
+    repoUrl: "https://github.com/Yudbay1809/wedding-invitation",
+    caseStudy: {
+      problem: "Membutuhkan SaaS undangan digital yang rapi dan mudah dikelola untuk banyak event.",
+      role: "Full-stack developer",
+      solution: "Membangun flow end-to-end: marketing, auth, dashboard, dan halaman undangan.",
+      result: "MVP dengan struktur route, admin area, serta integrasi Supabase siap dikembangkan.",
+    },
+  },
+  {
+    title: "Supplier Gwen",
+    image: supplierGwen,
+    description:
+      "Aplikasi supplier untuk monitoring stok per brand, kontrabon, dan promosi dalam satu dashboard.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    tags: ["Frontend", "Backend"],
+    demoUrl: "",
+    repoUrl: "https://github.com/Yudbay1809/supplier-gwen",
+    caseStudy: {
+      problem: "Perlu dashboard yang cepat untuk memantau kontrabon, stok, dan promosi.",
+      role: "Frontend engineer",
+      solution: "Membangun layout dashboard modular dengan halaman kontrabon, stok, dan promosi.",
+      result: "UI siap pakai dengan ringkasan dashboard dan detail tiap modul.",
+    },
+  },
+  {
+    title: "Gwen App",
+    image: gwenApp,
+    description:
+      "Aplikasi mobile dengan arsitektur modular, state management yang rapi, dan UI scalable.",
+    technologies: ["Flutter", "Dart", "Riverpod", "GoRouter"],
+    tags: ["Mobile"],
+    demoUrl: "",
+    repoUrl: "https://github.com/Yudbay1809/gwen_app",
+    caseStudy: {
+      problem: "Butuh aplikasi mobile yang mudah dikembangkan untuk banyak fitur.",
+      role: "Mobile developer",
+      solution: "Menyusun arsitektur feature-based dengan Riverpod dan GoRouter.",
+      result: "Struktur aplikasi siap scale dengan UI reusable dan dummy data.",
+    },
   },
 ];
 

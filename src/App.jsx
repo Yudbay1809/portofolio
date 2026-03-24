@@ -16,11 +16,13 @@ import Experience from "./components/Experience";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Project from "./components/Project";
+import Services from "./components/Services";
 import Technologies from "./components/Technologies";
 
 const SECTION_NAV_ITEMS = [
   { href: "#top", label: "Hero" },
   { href: "#about", label: "About" },
+  { href: "#services", label: "Services" },
   { href: "#education", label: "Education" },
   { href: "#technologies", label: "Tech" },
   { href: "#experience", label: "Experience" },
@@ -37,6 +39,7 @@ const App = () => {
   const wheelLockRef = useRef(false);
   const prefersReducedMotion = useReducedMotion();
   const [isLowPower, setIsLowPower] = useState(false);
+  const enableWheelSnapNav = false;
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") {
       return "dark";
@@ -100,7 +103,7 @@ const App = () => {
   }, [shouldReduceMotion]);
 
   useEffect(() => {
-    const sectionIds = ["top", "about", "education", "technologies", "experience", "projects", "contact"];
+    const sectionIds = ["top", "about", "services", "education", "technologies", "experience", "projects", "contact"];
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((element) => element !== null);
@@ -163,7 +166,7 @@ const App = () => {
 
   useEffect(() => {
     const isDesktop = window.matchMedia("(min-width: 1024px) and (min-height: 820px)").matches;
-    if (!isDesktop || shouldReduceMotion) {
+    if (!isDesktop || shouldReduceMotion || !enableWheelSnapNav) {
       return undefined;
     }
 
@@ -293,6 +296,10 @@ const App = () => {
 
         <motion.div style={{ y: shouldReduceMotion ? 0 : aboutY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <About />
+        </motion.div>
+
+        <motion.div style={{ y: shouldReduceMotion ? 0 : aboutY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+          <Services />
         </motion.div>
 
         <motion.div style={{ y: shouldReduceMotion ? 0 : educationY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>

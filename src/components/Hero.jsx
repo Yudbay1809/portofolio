@@ -65,6 +65,7 @@ const stats = [
   { value: 2, suffix: "", label: "Program Pendidikan Utama" },
 ];
 const TYPE_WORDS = ["Web Developer", "IT Support", "Problem Solver", "Cloud Enthusiast"];
+const ROLE_LINE = "Web Developer • IT Support • Fresh Graduate";
 
 const Hero = () => {
   const [typedWord, setTypedWord] = useState("");
@@ -130,7 +131,11 @@ const Hero = () => {
             <span className="type-cursor" />
           </motion.p>
 
-          <motion.p variants={item} className="mt-5 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-lg">
+          <motion.p variants={item} className="mt-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400 sm:text-xs">
+            {ROLE_LINE}
+          </motion.p>
+
+          <motion.p variants={item} className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-lg">
             {HERO_CONTENT}
           </motion.p>
 
@@ -144,6 +149,14 @@ const Hero = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-amber-200 to-amber-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <FiMail className="relative z-10" />
               <span className="relative z-10">Hubungi Saya</span>
+            </motion.a>
+            <motion.a
+              href="#projects"
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-6 py-3.5 text-sm font-semibold text-amber-100 transition-all duration-300 hover:border-amber-300/60 hover:bg-amber-300/20 hover:text-amber-200 sm:w-auto"
+            >
+              View Projects
             </motion.a>
             <motion.a
               href="https://github.com/Yudbay1809"

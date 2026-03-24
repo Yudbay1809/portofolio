@@ -4,6 +4,7 @@ import { FaPhp } from "react-icons/fa6";
 import { IoLogoFirebase } from "react-icons/io5";
 import { RiReactjsLine } from "react-icons/ri";
 import { SiAndroidstudio, SiMysql } from "react-icons/si";
+import { PROJECTS } from "../constants";
 
 const skills = [
   { name: "React", icon: RiReactjsLine, color: "text-cyan-300", level: 78 },
@@ -13,6 +14,17 @@ const skills = [
   { name: "Node.js", icon: FaNodeJs, color: "text-lime-300", level: 74 },
   { name: "MySQL", icon: SiMysql, color: "text-sky-300", level: 83 },
 ];
+
+const stackCounts = PROJECTS.reduce((acc, project) => {
+  project.technologies.forEach((tech) => {
+    acc[tech] = (acc[tech] || 0) + 1;
+  });
+  return acc;
+}, {});
+
+const stackSummary = Object.entries(stackCounts)
+  .sort((a, b) => b[1] - a[1])
+  .map(([tech, count]) => `${tech} (${count}x)`);
 
 const Technologies = () => {
   return (
@@ -27,6 +39,17 @@ const Technologies = () => {
           Technologies I Use
         </motion.h2>
         <p className="section-subtitle">Skill utama yang paling sering saya pakai untuk membangun aplikasi web dan mobile.</p>
+
+        <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
+          {stackSummary.map((item) => (
+            <span
+              key={item}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 font-semibold"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-7 grid gap-5 md:grid-cols-2">
           {skills.map((skill, index) => {

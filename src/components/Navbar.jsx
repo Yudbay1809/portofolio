@@ -7,6 +7,7 @@ import logo from "../assets/YBPLogo.png";
 
 const menuItems = [
   { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
   { label: "Education", href: "#education" },
   { label: "Tech", href: "#technologies" },
   { label: "Experience", href: "#experience" },
