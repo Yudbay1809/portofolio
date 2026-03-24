@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
+  MotionConfig,
   useMotionTemplate,
   useMotionValue,
+  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -33,6 +35,8 @@ const App = () => {
   const [activeSection, setActiveSection] = useState("#top");
   const [isSceneTransitioning, setIsSceneTransitioning] = useState(false);
   const wheelLockRef = useRef(false);
+  const prefersReducedMotion = useReducedMotion();
+  const [isLowPower, setIsLowPower] = useState(false);
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") {
       return "dark";
@@ -52,10 +56,33 @@ const App = () => {
   const projectY = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const contactY = useTransform(scrollYProgress, [0, 1], [0, -25]);
 
+  const shouldReduceMotion = prefersReducedMotion || isLowPower;
+
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const cores = navigator.hardwareConcurrency;
+    const memory = navigator.deviceMemory;
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+    const lowPower =
+      isSmallScreen ||
+      (typeof cores === "number" && cores <= 4) ||
+      (typeof memory === "number" && memory <= 4);
+
+    setIsLowPower(lowPower);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setShowIntro(false);
+      return;
+    }
+
     const introTimer = setTimeout(() => setShowIntro(false), 1650);
     return () => clearTimeout(introTimer);
-  }, []);
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 600);
@@ -67,6 +94,10 @@ const App = () => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-motion", shouldReduceMotion ? "reduced" : "full");
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     const sectionIds = ["top", "about", "education", "technologies", "experience", "projects", "contact"];
@@ -107,22 +138,32 @@ const App = () => {
     }
 
     setActiveSection(target);
-    setIsSceneTransitioning(true);
+    if (!shouldReduceMotion) {
+      setIsSceneTransitioning(true);
+    }
+
+    const topOffset = 92;
+    const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - topOffset;
+    const scrollBehavior = shouldReduceMotion ? "auto" : "smooth";
+
+    if (shouldReduceMotion) {
+      window.scrollTo({ top: targetPosition, behavior: scrollBehavior });
+      setIsSceneTransitioning(false);
+      return;
+    }
 
     window.setTimeout(() => {
-      const topOffset = 92;
-      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - topOffset;
-      window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      window.scrollTo({ top: targetPosition, behavior: scrollBehavior });
     }, 110);
 
     window.setTimeout(() => {
       setIsSceneTransitioning(false);
     }, 620);
-  }, []);
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     const isDesktop = window.matchMedia("(min-width: 1024px) and (min-height: 820px)").matches;
-    if (!isDesktop) {
+    if (!isDesktop || shouldReduceMotion) {
       return undefined;
     }
 
@@ -155,24 +196,33 @@ const App = () => {
 
     window.addEventListener("wheel", onWheel, { passive: false });
     return () => window.removeEventListener("wheel", onWheel);
-  }, [activeSection, handleNavigate, showIntro]);
+  }, [activeSection, handleNavigate, showIntro, shouldReduceMotion]);
 
   return (
-    <div
-      onPointerMove={(event) => {
-        mouseX.set(event.clientX);
-        mouseY.set(event.clientY);
-      }}
-      onPointerLeave={() => {
-        mouseX.set(-1000);
-        mouseY.set(-1000);
-      }}
-      className={`min-h-screen overflow-x-hidden antialiased ${
-        theme === "dark"
-          ? "text-slate-100 selection:bg-amber-300 selection:text-slate-900"
-          : "text-slate-900 selection:bg-slate-900 selection:text-amber-100"
-      }`}
-    >
+    <MotionConfig reducedMotion={shouldReduceMotion ? "always" : "user"}>
+      <div
+        onPointerMove={
+          shouldReduceMotion
+            ? undefined
+            : (event) => {
+                mouseX.set(event.clientX);
+                mouseY.set(event.clientY);
+              }
+        }
+        onPointerLeave={
+          shouldReduceMotion
+            ? undefined
+            : () => {
+                mouseX.set(-1000);
+                mouseY.set(-1000);
+              }
+        }
+        className={`min-h-screen overflow-x-hidden antialiased ${
+          theme === "dark"
+            ? "text-slate-100 selection:bg-amber-300 selection:text-slate-900"
+            : "text-slate-900 selection:bg-slate-900 selection:text-amber-100"
+        }`}
+      >
       <AnimatePresence>
         {showIntro ? (
           <motion.div
@@ -220,7 +270,9 @@ const App = () => {
       </AnimatePresence>
 
       <motion.div className="progress-bar" style={{ scaleX: scrollYProgress }} />
-      <motion.div className="pointer-events-none fixed inset-0 z-20 hidden md:block" style={{ background: spotlight }} />
+      {!shouldReduceMotion ? (
+        <motion.div className="pointer-events-none fixed inset-0 z-20 hidden md:block" style={{ background: spotlight }} />
+      ) : null}
 
       <div className="background-grid" aria-hidden="true" />
       <div className="blob blob-one" aria-hidden="true" />
@@ -235,31 +287,31 @@ const App = () => {
       />
 
       <main className="story-shell relative z-10 mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
-        <motion.div style={{ y: heroY }} className="parallax-layer snap-scene" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : heroY }} className="parallax-layer snap-scene" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <Hero />
         </motion.div>
 
-        <motion.div style={{ y: aboutY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : aboutY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <About />
         </motion.div>
 
-        <motion.div style={{ y: educationY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : educationY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <Education />
         </motion.div>
 
-        <motion.div style={{ y: techY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : techY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <Technologies />
         </motion.div>
 
-        <motion.div style={{ y: experienceY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : experienceY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <Experience />
         </motion.div>
 
-        <motion.div style={{ y: projectY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : projectY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <Project />
         </motion.div>
 
-        <motion.div style={{ y: contactY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
+        <motion.div style={{ y: shouldReduceMotion ? 0 : contactY }} className="parallax-layer snap-scene" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45 }}>
           <Contact />
         </motion.div>
       </main>
@@ -301,7 +353,8 @@ const App = () => {
           </motion.button>
         ) : null}
       </AnimatePresence>
-    </div>
+      </div>
+    </MotionConfig>
   );
 };
 

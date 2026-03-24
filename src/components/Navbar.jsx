@@ -34,23 +34,30 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/60 backdrop-blur-xl">
+    <header className="fixed top-0 z-50 w-full">
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-8">
-        <a href="#top" onClick={(event) => handleNavClick(event, "#top")} className="flex items-center gap-3">
-          <img className="w-10 rounded-xl border border-white/20 sm:w-11" src={logo} alt="Yudha Bayu Prastyo logo" />
-          <div className="hidden sm:block">
-            <p className="font-semibold tracking-wide text-slate-100">Yudha Bayu Prastyo</p>
-            <p className="text-xs text-slate-400">Informatics Graduate</p>
-          </div>
-        </a>
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-3"
+        >
+          <a href="#top" onClick={(event) => handleNavClick(event, "#top")} className="flex items-center gap-3">
+            <img className="w-10 rounded-xl border border-white/20 sm:w-11" src={logo} alt="Yudha Bayu Prastyo logo" />
+            <div className="hidden sm:block">
+              <p className="font-semibold tracking-wide text-slate-100">Yudha Bayu Prastyo</p>
+              <p className="text-xs text-slate-400">Informatics Graduate</p>
+            </div>
+          </a>
+        </motion.div>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {menuItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={(event) => handleNavClick(event, item.href)}
-              className={`nav-link text-sm font-medium transition hover:text-amber-300 ${
+              className={`nav-link rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-amber-300 ${
                 activeSection === item.href ? "is-active text-amber-300" : "text-slate-300"
               }`}
             >
@@ -59,12 +66,17 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
           ))}
         </div>
 
-        <div className="hidden items-center gap-2 lg:flex">
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="hidden items-center gap-2 lg:flex"
+        >
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Ganti tema"
-            className="rounded-lg border border-white/15 p-2 text-slate-200 transition hover:border-cyan-300/60 hover:text-cyan-200"
+            className="group rounded-full border border-white/15 p-2 text-slate-200 transition-all duration-300 hover:border-cyan-300/60 hover:text-cyan-200 hover:shadow-lg hover:shadow-cyan-300/10"
           >
             {theme === "dark" ? <FiSun /> : <FiMoon />}
           </button>
@@ -75,19 +87,19 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
               target="_blank"
               rel="noreferrer"
               aria-label={label}
-              className="rounded-lg border border-white/15 p-2 text-slate-300 transition hover:-translate-y-0.5 hover:border-amber-300/60 hover:text-amber-200"
+              className="group rounded-full border border-white/15 p-2 text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300/60 hover:text-amber-200 hover:shadow-lg hover:shadow-amber-300/10"
             >
               <Icon />
             </a>
           ))}
-        </div>
+        </motion.div>
 
         <div className="flex items-center gap-2 lg:hidden">
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Ganti tema"
-            className="rounded-lg border border-white/15 p-2 text-slate-200"
+            className="rounded-full border border-white/15 p-2 text-slate-200"
           >
             {theme === "dark" ? <FiSun /> : <FiMoon />}
           </button>
@@ -95,7 +107,7 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
             type="button"
             aria-label="Toggle menu"
             onClick={() => setOpen((value) => !value)}
-            className="rounded-lg border border-white/15 p-2 text-xl text-slate-200"
+            className="rounded-full border border-white/15 p-2 text-xl text-slate-200"
           >
             {open ? <HiX /> : <HiOutlineMenuAlt3 />}
           </button>
@@ -105,18 +117,19 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
       <AnimatePresence>
         {open ? (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="max-h-[70vh] overflow-y-auto border-t border-white/10 bg-slate-950/90 px-4 py-4 backdrop-blur lg:hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="max-h-[70vh] overflow-y-auto border-t border-white/10 bg-slate-950/90 px-4 py-4 backdrop-blur-lg lg:hidden"
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(event) => handleNavClick(event, item.href)}
-                  className={`rounded-md px-2 py-1 text-sm hover:bg-white/5 ${
+                  className={`rounded-full px-3 py-2 text-sm transition-all duration-300 hover:bg-white/5 ${
                     activeSection === item.href ? "bg-white/10 text-amber-200" : "text-slate-200"
                   }`}
                 >
@@ -129,7 +142,7 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
                 type="button"
                 onClick={toggleTheme}
                 aria-label="Ganti tema"
-                className="rounded-lg border border-white/15 p-2 text-slate-300"
+                className="rounded-full border border-white/15 p-2 text-slate-300 transition hover:border-cyan-300/60 hover:text-cyan-200"
               >
                 {theme === "dark" ? <FiSun /> : <FiMoon />}
               </button>
@@ -140,7 +153,7 @@ const Navbar = ({ theme, toggleTheme, activeSection, onNavigate }) => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="rounded-lg border border-white/15 p-2 text-slate-300"
+                  className="rounded-full border border-white/15 p-2 text-slate-300 transition hover:border-amber-300/60 hover:text-amber-200"
                 >
                   <Icon />
                 </a>

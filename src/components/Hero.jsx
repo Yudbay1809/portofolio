@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { FiGithub, FiMail } from "react-icons/fi";
 import { HERO_CONTENT } from "../constants";
 import profilePic from "../assets/Me.jpg";
@@ -14,14 +14,21 @@ const CountUpValue = ({ value, suffix = "" }) => {
   const [current, setCurrent] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20% 0px" });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setCurrent(value);
+      return;
+    }
+
     if (!isInView) {
       return;
     }
 
     let startTime = null;
     const duration = 900;
+    let rafId = null;
 
     const tick = (timestamp) => {
       if (!startTime) {
@@ -31,12 +38,18 @@ const CountUpValue = ({ value, suffix = "" }) => {
       setCurrent(Math.floor(progress * value));
 
       if (progress < 1) {
-        window.requestAnimationFrame(tick);
+        rafId = window.requestAnimationFrame(tick);
       }
     };
 
-    window.requestAnimationFrame(tick);
-  }, [isInView, value]);
+    rafId = window.requestAnimationFrame(tick);
+
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, [isInView, prefersReducedMotion, value]);
 
   return (
     <span ref={ref}>
@@ -57,8 +70,14 @@ const Hero = () => {
   const [typedWord, setTypedWord] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setTypedWord(TYPE_WORDS[0]);
+      return;
+    }
+
     const currentWord = TYPE_WORDS[wordIndex % TYPE_WORDS.length];
     const typingSpeed = isDeleting ? 48 : 86;
     const timeout = window.setTimeout(() => {
@@ -77,7 +96,7 @@ const Hero = () => {
     }, typingSpeed);
 
     return () => window.clearTimeout(timeout);
-  }, [typedWord, isDeleting, wordIndex]);
+  }, [typedWord, isDeleting, wordIndex, prefersReducedMotion]);
 
   return (
     <section id="top" className="py-8 sm:py-12 lg:py-14">
@@ -118,63 +137,70 @@ const Hero = () => {
           <motion.div variants={item} className="mt-7 flex flex-wrap items-center gap-3">
             <motion.a
               href="#contact"
-              whileHover={{ y: -3, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-amber-200 sm:w-auto"
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-amber-300 to-amber-200 px-6 py-3.5 text-sm font-bold text-slate-900 shadow-lg shadow-amber-300/20 transition-all duration-300 sm:w-auto"
             >
-              <FiMail />
-              Hubungi Saya
+              <span className="absolute inset-0 bg-gradient-to-r from-amber-200 to-amber-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <FiMail className="relative z-10" />
+              <span className="relative z-10">Hubungi Saya</span>
             </motion.a>
             <motion.a
               href="https://github.com/Yudbay1809"
               target="_blank"
               rel="noreferrer"
-              whileHover={{ y: -3, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-200/70 hover:text-cyan-100 sm:w-auto"
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-100 backdrop-blur-sm transition-all duration-300 hover:border-cyan-200/70 hover:bg-cyan-300/10 hover:text-cyan-100 hover:shadow-lg hover:shadow-cyan-300/10 sm:w-auto"
             >
               <FiGithub />
               Lihat GitHub
             </motion.a>
           </motion.div>
 
-          <motion.div variants={item} className="mt-8 grid gap-3 sm:grid-cols-3">
+          <motion.div variants={item} className="mt-8 grid gap-4 sm:grid-cols-3">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 220, damping: 16 }}
-                className="rounded-xl border border-white/10 bg-white/5 p-4"
+                whileHover={{ y: -6, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 280, damping: 20 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-5 backdrop-blur-sm"
                 animate={{ y: [0, -2, 0] }}
                 style={{ willChange: "transform" }}
               >
-                <p className="text-2xl font-bold text-amber-200">
+                <div className="absolute inset-0 bg-gradient-to-b from-amber-300/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <p className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-cyan-300">
                   <CountUpValue value={stat.value} suffix={stat.suffix} />
                 </p>
-                <p className="text-xs text-slate-400">{stat.label}</p>
+                <p className="mt-1 text-xs font-medium text-slate-400">{stat.label}</p>
                 <motion.div
-                  className="mt-2 h-0.5 rounded-full bg-gradient-to-r from-amber-300/70 to-cyan-300/70"
+                  className="mt-3 h-1 rounded-full bg-gradient-to-r from-amber-300 via-cyan-300 to-indigo-300"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.15 }}
+                  transition={{ duration: 1, delay: 0.3 + index * 0.15 }}
                 />
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        <motion.div variants={item} className="relative mx-auto w-full max-w-sm" whileHover={{ rotate: 0.5, scale: 1.015 }}>
+        <motion.div variants={item} className="relative mx-auto w-full max-w-sm" whileHover={{ rotate: 0.8, scale: 1.02 }}>
           <motion.div
-            className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-amber-300/30 via-cyan-300/20 to-blue-400/20 blur-lg"
-            animate={{ opacity: [0.55, 0.9, 0.55], scale: [1, 1.04, 1] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -inset-4 rounded-[32px] bg-gradient-to-tr from-amber-300/40 via-cyan-300/30 to-indigo-300/30 blur-2xl"
+            animate={{ opacity: [0.5, 0.85, 0.5], scale: [1, 1.08, 1], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute -inset-1 rounded-[32px] bg-gradient-to-tr from-amber-300/20 to-cyan-300/20"
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 4, repeat: Infinity }}
           />
           <motion.img
             src={profilePic}
             alt="Yudha Bayu Prastyo"
-            className="relative h-[320px] w-full rounded-3xl border border-white/20 object-cover shadow-2xl sm:h-[400px]"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative h-[320px] w-full rounded-[32px] border border-white/20 object-cover shadow-2xl shadow-amber-300/10 sm:h-[400px]"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
 

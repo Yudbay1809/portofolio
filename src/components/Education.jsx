@@ -14,31 +14,44 @@ export const Education = () => {
           Education Journey
         </motion.h2>
 
-        <div className="relative mt-8 space-y-6 before:absolute before:left-2 before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-white/20 sm:before:left-3">
+        <div className="relative mt-8 space-y-6">
           {EDUCATION.map((item, index) => (
             <motion.article
               key={index}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-              whileHover={{ y: -3 }}
-              className="relative ml-8 rounded-2xl border border-white/15 bg-slate-900/60 p-5"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -6, scale: 1.01 }}
+              className="group relative ml-6 overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/30 hover:shadow-xl hover:shadow-cyan-300/10"
             >
+              <div className="absolute inset-0 bg-gradient-to-b from-indigo-300/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               <motion.span
-                className="absolute -left-[2.05rem] top-6 h-3 w-3 rounded-full border-2 border-slate-950 bg-amber-300"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.15 }}
+                className="absolute -left-[2.1rem] top-5 h-3.5 w-3.5 rounded-full border-2 border-slate-950 bg-gradient-to-r from-amber-300 to-cyan-300 shadow-lg shadow-amber-300/30"
+                animate={{ scale: [1, 1.25, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
               />
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-200">{item.year}</p>
-              <h3 className="mt-2 text-lg font-semibold text-slate-100">{item.place}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.technologies.map((tech) => (
+
+              <div className="absolute -left-px top-0 h-12 w-1 bg-gradient-to-b from-amber-300 via-cyan-300 to-indigo-300 opacity-50 group-hover:opacity-100 transition-opacity" />
+
+              <p className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-200 backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                {item.year}
+              </p>
+              <h3 className="mt-3 text-lg font-bold text-slate-100">{item.place}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-300">{item.description}</p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {item.technologies.map((tech, idx) => (
                   <motion.span
                     key={tech}
-                    whileHover={{ y: -2 }}
-                    className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-200"
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.04 }}
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:shadow-lg hover:shadow-cyan-300/10"
                   >
                     {tech}
                   </motion.span>

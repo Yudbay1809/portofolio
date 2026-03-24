@@ -2,6 +2,9 @@ import project1 from "../assets/projects/project-1.png";
 import project2 from "../assets/projects/project-2.png";
 import project3 from "../assets/projects/project-3.jpg";
 import project4 from "../assets/projects/project-4.jpg";
+import project5 from "../assets/projects/project-5.png";
+import project6 from "../assets/projects/project-6.png";
+import project7 from "../assets/projects/project-7.png";
 
 export const HERO_CONTENT = `Saya Yudha Bayu Prastyo, lulusan Teknik Informatika yang berfokus pada pengembangan aplikasi web dan dukungan sistem TI. Saya menikmati proses mengubah kebutuhan bisnis menjadi solusi digital yang efisien, mudah digunakan, dan terukur.`;
 
@@ -63,6 +66,27 @@ export const PROJECTS = [
     description:
       "Aplikasi Android berbasis ALPR untuk mendukung pemantauan lalu lintas, manajemen parkir, dan kebutuhan pelacakan kendaraan secara otomatis.",
     technologies: ["Java", "Python", "Android Studio", "Jupyter Notebook", "Firebase"],
+  },
+  {
+    title: "Digital Signage Player",
+    image: project5,
+    description:
+      "Aplikasi Flutter digital signage player dengan fitur playlist sync, caching, dan realtime update untuk menampilkan konten secara dinamis pada perangkat kiosk.",
+    technologies: ["Flutter", "Dart", "Android", "WebSocket"],
+  },
+  {
+    title: "CMS Signage Desktop",
+    image: project6,
+    description:
+      "Aplikasi desktop Flutter untuk manajemen konten digital signage, termasuk playlist, schedule, dan device management berbasis Windows.",
+    technologies: ["Flutter", "Dart", "Desktop", "Windows"],
+  },
+  {
+    title: "Digital Signage Backend API",
+    image: project7,
+    description:
+      "Backend API berbasis FastAPI untuk digital signage: manajemen media, playlists, schedules, devices, dan realtime updates dengan WebSocket.",
+    technologies: ["Python", "FastAPI", "SQLAlchemy", "WebSocket"],
   },
 ];
 
