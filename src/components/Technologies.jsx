@@ -6,14 +6,31 @@ import { RiReactjsLine } from "react-icons/ri";
 import { SiAndroidstudio, SiMysql } from "react-icons/si";
 import { PROJECTS } from "../constants";
 
-const skills = [
-  { name: "React", icon: RiReactjsLine, color: "text-cyan-300", level: 78 },
-  { name: "PHP", icon: FaPhp, color: "text-blue-300", level: 80 },
-  { name: "Firebase", icon: IoLogoFirebase, color: "text-orange-300", level: 72 },
-  { name: "Android Studio", icon: SiAndroidstudio, color: "text-emerald-300", level: 70 },
-  { name: "Node.js", icon: FaNodeJs, color: "text-lime-300", level: 74 },
-  { name: "MySQL", icon: SiMysql, color: "text-sky-300", level: 83 },
-];
+const TECH_META = {
+  React: { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  "Tailwind CSS": { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  HTML: { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  CSS: { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  Bootstrap: { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  "Next.js": { icon: RiReactjsLine, color: "text-cyan-300", category: "Frontend" },
+  PHP: { icon: FaPhp, color: "text-blue-300", category: "Backend" },
+  MySQL: { icon: SiMysql, color: "text-sky-300", category: "Backend" },
+  Python: { icon: FaNodeJs, color: "text-lime-300", category: "Backend" },
+  FastAPI: { icon: FaNodeJs, color: "text-lime-300", category: "Backend" },
+  SQLAlchemy: { icon: FaNodeJs, color: "text-lime-300", category: "Backend" },
+  Firebase: { icon: IoLogoFirebase, color: "text-orange-300", category: "Backend" },
+  "Node.js": { icon: FaNodeJs, color: "text-lime-300", category: "Backend" },
+  Flutter: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  Dart: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  Android: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  "Android Studio": { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  Riverpod: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  GoRouter: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Mobile" },
+  Desktop: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Desktop" },
+  Windows: { icon: SiAndroidstudio, color: "text-emerald-300", category: "Desktop" },
+};
+
+const CATEGORY_ORDER = ["Frontend", "Backend", "Mobile", "Desktop"];
 
 const stackCounts = PROJECTS.reduce((acc, project) => {
   project.technologies.forEach((tech) => {
@@ -22,9 +39,19 @@ const stackCounts = PROJECTS.reduce((acc, project) => {
   return acc;
 }, {});
 
-const stackSummary = Object.entries(stackCounts)
-  .sort((a, b) => b[1] - a[1])
-  .map(([tech, count]) => `${tech} (${count}x)`);
+const categoryStacks = CATEGORY_ORDER.map((category) => {
+  const items = Object.entries(stackCounts)
+    .filter(([tech]) => TECH_META[tech]?.category === category)
+    .sort((a, b) => b[1] - a[1])
+    .map(([tech, count]) => ({
+      tech,
+      count,
+      icon: TECH_META[tech]?.icon,
+      color: TECH_META[tech]?.color || "text-slate-300",
+    }));
+
+  return { category, items };
+}).filter((group) => group.items.length > 0);
 
 const Technologies = () => {
   return (
@@ -40,63 +67,45 @@ const Technologies = () => {
         </motion.h2>
         <p className="section-subtitle">Skill utama yang paling sering saya pakai untuk membangun aplikasi web dan mobile.</p>
 
-        <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
-          {stackSummary.map((item) => (
-            <span
-              key={item}
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 font-semibold"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
         <div className="mt-7 grid gap-5 md:grid-cols-2">
-          {skills.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-5 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/30 hover:shadow-xl hover:shadow-cyan-300/10"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-amber-300/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {categoryStacks.map((group, index) => (
+            <motion.div
+              key={group.category}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, delay: index * 0.08 }}
+              whileHover={{ y: -6, scale: 1.01 }}
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/10 to-white/5 p-5 backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/30 hover:shadow-xl hover:shadow-cyan-300/10"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-amber-300/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative mb-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-900/50 p-3 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-300/30">
-                      <Icon className={`text-2xl ${skill.color}`} />
+              <div className="relative flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Category</p>
+                  <h3 className="mt-1 text-lg font-bold text-slate-100">{group.category}</h3>
+                </div>
+                <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">
+                  {group.items.length} stacks
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {group.items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <span
+                      key={`${group.category}-${item.tech}`}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-200"
+                    >
+                      {Icon ? <Icon className={`text-sm ${item.color}`} /> : null}
+                      {item.tech} ({item.count}x)
                     </span>
-                    <p className="font-bold text-slate-100">{skill.name}</p>
-                  </div>
-                  <motion.span
-                    className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-bold text-slate-100 backdrop-blur-sm"
-                    animate={{ borderColor: ["rgba(255,255,255,0.2)", "rgba(34, 211, 238, 0.5)", "rgba(255,255,255,0.2)"] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    {skill.level}%
-                  </motion.span>
-                </div>
-
-                <div className="relative h-3 rounded-full bg-slate-700/40 overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: index * 0.1, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-amber-300 via-cyan-300 to-indigo-300 shadow-lg shadow-amber-300/20"
-                    style={{ boxShadow: "0 0 20px rgba(251, 191, 36, 0.4)" }}
-                  />
-                </div>
-
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-300/10 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </motion.div>
-            );
-          })}
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
