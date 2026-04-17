@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const Hero = ({ content }) => {
+const Hero = ({ content, onNavigate }) => {
   return (
     <section id="top" className="relative min-h-[90vh] flex flex-col items-center justify-center pt-20 overflow-hidden">
       {/* Background Ambience */}
@@ -18,20 +18,38 @@ const Hero = ({ content }) => {
           </span>
         </motion.div>
 
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-5xl md:text-8xl font-serif leading-[1.1] mb-8"
-        >
-          Yudha Bayu <br />
-          <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-cyber via-primary to-solar text-glow">Prastyo</span>
-        </motion.h1>
+        <h1 className="text-5xl md:text-8xl font-serif leading-[1.1] mb-8 select-none">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="block mb-2 text-primary"
+          >
+            Yudha Bayu
+          </motion.span>
+          
+          <div className="overflow-hidden">
+            <motion.span 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ 
+                opacity: 1, 
+                y: [0, -10, 0],
+              }}
+              transition={{ 
+                opacity: { duration: 0.8, delay: 0.3 },
+                y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="italic text-transparent bg-clip-text bg-gradient-to-r from-cyber via-primary to-solar text-glow bg-[length:200%_auto] animate-gradient-flow block cursor-default py-2"
+            >
+              Prastyo
+            </motion.span>
+          </div>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.5 }}
           className="text-secondary text-lg md:text-xl font-sans max-w-2xl mx-auto leading-relaxed mb-12"
         >
           {content.description}
@@ -40,19 +58,24 @@ const Hero = ({ content }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button className="cyber-button w-full sm:w-auto px-10 py-4 text-sm uppercase tracking-widest font-bold">
+          <button 
+            onClick={() => onNavigate("#projects")}
+            className="cyber-button w-full sm:w-auto px-10 py-4 text-sm uppercase tracking-widest font-bold"
+          >
             {content.btnProjects}
           </button>
-          <button className="ghost-button w-full sm:w-auto px-10 py-4 text-sm uppercase tracking-widest font-bold">
+          <button 
+            onClick={() => onNavigate("#contact")}
+            className="ghost-button w-full sm:w-auto px-10 py-4 text-sm uppercase tracking-widest font-bold"
+          >
             {content.btnContact}
           </button>
         </motion.div>
       </div>
 
-      {/* Decorative Blueprint Line */}
       <motion.div 
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}

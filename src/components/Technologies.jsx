@@ -60,7 +60,7 @@ const Technologies = ({ content }) => {
             variants={iconVariants(2 + index * 0.5)}
             initial="initial"
             animate="animate"
-            className="group relative"
+            className="group relative hover:z-50"
           >
             <div className="glass-panel p-6 sm:p-8 flex items-center justify-center group-hover:border-cyber/40 transition-all duration-300">
               <div className="text-4xl sm:text-6xl transition-all duration-300 group-hover:scale-110 text-primary group-hover:text-cyber">

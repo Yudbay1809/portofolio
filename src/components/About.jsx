@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import profileImg from "../assets/Me.jpg";
 
 export const About = ({ content }) => {
   return (
@@ -19,24 +20,32 @@ export const About = ({ content }) => {
                 <div className="absolute inset-0 bg-gradient-to-br from-cyber via-transparent to-transparent opacity-10" />
                 <div className="absolute inset-0 bg-gradient-to-tl from-solar via-transparent to-transparent opacity-10" />
                 
-                {/* Abstract Architect Pattern */}
-                <div className="absolute inset-0 opacity-[0.03] bg-grid-promax scale-150" />
+                {/* Profile Image */}
+                <motion.img 
+                  src={profileImg} 
+                  alt="Yudha Bayu Prastyo"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-full h-full object-cover relative z-10 opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                />
+
+                {/* Abstract Architect Pattern Decorators */}
+                <div className="absolute inset-0 opacity-[0.03] bg-grid-promax scale-150 z-0" />
                 
                 <motion.div 
                   animate={{ 
                     rotate: 360
                   }}
                   transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                  className="absolute w-64 h-64 border-[4px] border-cyber border-t-transparent opacity-70 rounded-full border-dashed"
+                  className="absolute w-[80%] h-[80%] border-[4px] border-cyber border-t-transparent opacity-30 rounded-full border-dashed z-20 pointer-events-none"
                 />
                 <motion.div 
                   animate={{ 
                     rotate: -360
                   }}
                   transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  className="absolute w-48 h-48 border-[4px] border-solar border-b-transparent border-l-transparent opacity-70 rounded-full border-dotted"
+                  className="absolute w-[70%] h-[70%] border-[4px] border-solar border-b-transparent border-l-transparent opacity-30 rounded-full border-dotted z-20 pointer-events-none"
                 />
-                <span className="relative z-10 text-6xl font-serif italic text-cyber text-glow select-none font-bold">YB</span>
               </div>
             </div>
             {/* Stats Overlay */}

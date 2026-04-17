@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { FiGithub } from "react-icons/fi";
 import { useState, useEffect } from "react";
-import { CONTENT } from "../constants";
+import { CONTENT, CONTACT } from "../constants";
 
 const Navbar = ({ theme, toggleTheme, language, toggleLanguage, activeSection, onNavigate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -82,6 +83,16 @@ const Navbar = ({ theme, toggleTheme, language, toggleLanguage, activeSection, o
           >
             {theme === "dark" ? "☼" : "☾"}
           </button>
+
+          <a 
+            href={CONTACT.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-primary hover:text-cyber transition-colors text-lg"
+            aria-label="GitHub Profile"
+          >
+            <FiGithub />
+          </a>
           
           <button className="hidden sm:block cyber-button text-[10px] py-2 px-6 uppercase tracking-widest font-bold">
             {navContent.resume}

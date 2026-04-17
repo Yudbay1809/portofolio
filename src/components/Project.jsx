@@ -40,12 +40,24 @@ const Project = ({ content }) => {
                   />
                   {/* Overlay for Actions */}
                   <div className="absolute inset-0 bg-obsidian/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6">
-                    <button className="p-3 bg-cyber text-white rounded-full hover:scale-110 transition-transform shadow-xl">
+                    <a 
+                      href={project.external} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-3 bg-cyber text-slate-950 rounded-full hover:scale-110 transition-all shadow-xl flex items-center justify-center"
+                      title="Live Preview"
+                    >
                       <FiExternalLink size={20} />
-                    </button>
-                    <button className="p-3 bg-white text-slate-950 rounded-full hover:scale-110 transition-transform shadow-xl">
+                    </a>
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-3 bg-white text-slate-950 rounded-full hover:scale-110 transition-all shadow-xl flex items-center justify-center"
+                      title="GitHub Repository"
+                    >
                       <FiGithub size={20} />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

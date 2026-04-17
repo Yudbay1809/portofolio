@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMail, FiMapPin, FiSend, FiCheckCircle } from "react-icons/fi";
+import { FiMail, FiMapPin, FiSend, FiCheckCircle, FiGithub } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import { CONTACT } from "../constants";
@@ -113,6 +113,20 @@ export const Contact = ({ content }) => {
                 <div>
                   <p className="text-[10px] text-cyber uppercase tracking-widest font-bold opacity-80 mb-1">{content.labels.location}</p>
                   <p className="text-lg font-sans text-primary group-hover:text-cyber transition-colors">{CONTACT.address}</p>
+                </div>
+              </a>
+              <a 
+                href={CONTACT.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-6 group cursor-pointer"
+              >
+                <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-cyber group-hover:bg-cyber group-hover:text-obsidian transition-all duration-300">
+                  <FiGithub size={18} />
+                </div>
+                <div>
+                  <p className="text-[10px] text-cyber uppercase tracking-widest font-bold opacity-80 mb-1">GitHub</p>
+                  <p className="text-lg font-sans text-primary group-hover:text-cyber transition-colors">GitHub Profile</p>
                 </div>
               </a>
             </div>

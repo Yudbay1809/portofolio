@@ -121,7 +121,7 @@ const App = () => {
       />
 
       <main className="relative z-10">
-        <Hero content={currentContent.hero} />
+        <Hero content={currentContent.hero} onNavigate={handleNavigate} />
         <About content={currentContent.about} />
         <Education content={currentContent.education} />
         <Technologies content={currentContent.technologies} />

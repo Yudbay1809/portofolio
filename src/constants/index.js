@@ -12,6 +12,7 @@ export const CONTENT = {
       experience: "Pengalaman",
       contact: "Hubungi",
       resume: "Resume",
+      github: "GitHub",
       close: "Tutup"
     },
     hero: {
@@ -83,24 +84,32 @@ export const CONTENT = {
           image: project1,
           description: "Aplikasi manajemen operasional kafe untuk pengelolaan pesanan, inventaris, staf, dan pelaporan penjualan agar proses bisnis lebih efisien.",
           technologies: ["HTML", "CSS", "PHP", "MySQL"],
+          github: "https://github.com/Yudbay1809/cafe-x",
+          external: "#",
         },
         {
           title: "Poliklinik",
           image: project2,
           description: "Aplikasi manajemen klinik untuk alur janji temu, rekam medis, penjadwalan staf, dan proses administrasi layanan pasien.",
           technologies: ["HTML", "CSS", "PHP", "MySQL"],
+          github: "https://github.com/Yudbay1809/BK-poli",
+          external: "#",
         },
         {
           title: "Loviso Bangkit Capstone Project",
           image: project3,
           description: "Aplikasi mobile Location Advisor untuk mendukung eksposur UMKM dan komoditas regional agar lebih mudah diakses oleh masyarakat luas.",
           technologies: ["HTML", "CSS", "React", "Bootstrap"],
+          github: "https://github.com/MFaishalRamadhan/Capstone",
+          external: "#",
         },
         {
           title: "Automatic License Plate Recognition",
           image: project4,
           description: "Aplikasi Android berbasis ALPR untuk mendukung pemantauan lalu lintas, manajemen parkir, dan kebutuhan pelacakan kendaraan secara otomatis.",
           technologies: ["Java", "Python", "Android Studio", "Jupyter Notebook", "Firebase"],
+          github: "https://github.com/Yudbay1809/ALPR",
+          external: "#",
         },
       ]
     },
@@ -135,6 +144,7 @@ export const CONTENT = {
       experience: "Experience",
       contact: "Contact",
       resume: "Resume",
+      github: "GitHub",
       close: "Close"
     },
     hero: {
@@ -206,24 +216,32 @@ export const CONTENT = {
           image: project1,
           description: "A cafe operational management application for handling orders, inventory, staff, and sales reporting to make business processes more efficient.",
           technologies: ["HTML", "CSS", "PHP", "MySQL"],
+          github: "https://github.com/Yudbay1809/cafe-x",
+          external: "#",
         },
         {
           title: "Poliklinik",
           image: project2,
           description: "A clinic management application for appointment flows, medical records, staff scheduling, and patient service administration processes.",
           technologies: ["HTML", "CSS", "PHP", "MySQL"],
+          github: "https://github.com/Yudbay1809/poliklinik",
+          external: "#",
         },
         {
           title: "Loviso Bangkit Capstone Project",
           image: project3,
           description: "A Location Advisor mobile application to support the exposure of MSMEs and regional commodities to make them more accessible to the wider community.",
           technologies: ["HTML", "CSS", "React", "Bootstrap"],
+          github: "https://github.com/Yudbay1809/loviso",
+          external: "#",
         },
         {
           title: "Automatic License Plate Recognition",
           image: project4,
           description: "An ALPR-based Android application to support traffic monitoring, parking management, and automatic vehicle tracking requirements.",
           technologies: ["Java", "Python", "Android Studio", "Jupyter Notebook", "Firebase"],
+          github: "https://github.com/Yudbay1809/alpr-android",
+          external: "#",
         },
       ]
     },
@@ -256,4 +274,5 @@ export const CONTACT = {
   address: "Tegal, Jawa Tengah, Indonesia",
   phoneNo: "+62 857-3164-3104",
   email: "prastyodx2@gmail.com",
+  github: "https://github.com/Yudbay1809",
 };
