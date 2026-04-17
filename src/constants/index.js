@@ -28,6 +28,7 @@ export const CONTENT = {
       titleHighlight: "Bermakna",
       description: "Saya adalah lulusan Universitas Dian Nuswantoro dengan pengalaman praktik pada dukungan infrastruktur TI, troubleshooting teknis, serta pengembangan aplikasi berbasis web. Saya terbiasa bekerja dengan JavaScript, PHP, MySQL, dan layanan cloud, serta memiliki semangat belajar yang tinggi untuk terus meningkatkan kualitas solusi yang saya bangun.",
       quote: "\"Saya percaya bahwa setiap baris kode adalah fondasi dari sebuah arsitektur digital yang bermakna.\"",
+      alumniLabel: "Alumni",
       specLabel: "Spesialisasi",
       specValue: "Informatics",
       aspLabel: "Aspirasi",
@@ -110,15 +111,19 @@ export const CONTENT = {
       description: "Tertarik untuk berkolaborasi atau sekadar ingin berdiskusi tentang arsitektur TI? Pintu saya selalu terbuka untuk peluang baru.",
       labels: {
         email: "Email",
-        phone: "Telepon",
+        phone: "WhatsApp",
         location: "Lokasi",
+        subjectInput: "Subjek",
+        subjectPlaceholder: "Tujuan pesan Anda",
         nameInput: "Nama",
         namePlaceholder: "Nama Anda",
         emailInput: "Email",
         emailPlaceholder: "email@contoh.com",
         msgInput: "Pesan",
         msgPlaceholder: "Ada yang bisa saya bantu?",
-        sendBtn: "Kirim Pesan"
+        sendBtn: "Kirim Pesan",
+        successTitle: "Terkirim!",
+        successMsg: "Pesan Anda telah berhasil dikirim. Saya akan segera menghubungi Anda."
       }
     }
   },
@@ -146,6 +151,7 @@ export const CONTENT = {
       titleHighlight: "Experiences",
       description: "I am a graduate of Dian Nuswantoro University with practical experience in IT infrastructure support, technical troubleshooting, and web-based application development. I am accustomed to working with JavaScript, PHP, MySQL, and cloud services, accompanied by a strong willingness to learn and continuously improve the quality of the solutions I build.",
       quote: "\"I believe that every line of code is the foundation of a meaningful digital architecture.\"",
+      alumniLabel: "Alumnus",
       specLabel: "Specialization",
       specValue: "Informatics",
       aspLabel: "Aspiration",
@@ -228,15 +234,19 @@ export const CONTENT = {
       description: "Interested in collaborating or just want to chat about IT architecture? My door is always open for new opportunities.",
       labels: {
         email: "Email",
-        phone: "Phone",
+        phone: "WhatsApp",
         location: "Location",
+        subjectInput: "Subject",
+        subjectPlaceholder: "The purpose of your message",
         nameInput: "Name",
         namePlaceholder: "Your Name",
         emailInput: "Email",
         emailPlaceholder: "email@example.com",
         msgInput: "Message",
         msgPlaceholder: "How can I help you?",
-        sendBtn: "Send Message"
+        sendBtn: "Send Message",
+        successTitle: "Sent!",
+        successMsg: "Your message has been successfully sent. I will get back to you soon."
       }
     }
   }

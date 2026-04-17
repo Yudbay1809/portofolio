@@ -40,10 +40,10 @@ const Project = ({ content }) => {
                   />
                   {/* Overlay for Actions */}
                   <div className="absolute inset-0 bg-obsidian/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6">
-                    <button className="p-3 bg-cyber text-obsidian rounded-full hover:scale-110 transition-transform shadow-xl">
+                    <button className="p-3 bg-cyber text-white rounded-full hover:scale-110 transition-transform shadow-xl">
                       <FiExternalLink size={20} />
                     </button>
-                    <button className="p-3 bg-white text-obsidian rounded-full hover:scale-110 transition-transform shadow-xl">
+                    <button className="p-3 bg-white text-slate-950 rounded-full hover:scale-110 transition-transform shadow-xl">
                       <FiGithub size={20} />
                     </button>
                   </div>

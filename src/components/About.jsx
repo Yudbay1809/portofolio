@@ -47,7 +47,7 @@ export const About = ({ content }) => {
               className="absolute -bottom-6 -right-6 glass-panel p-6 shadow-2xl"
             >
               <p className="text-3xl font-serif text-solar font-bold">2024</p>
-              <p className="text-[10px] text-secondary uppercase tracking-[0.2em] font-bold">Alumni</p>
+              <p className="text-[10px] text-cyber uppercase tracking-[0.2em] font-bold">{content.alumniLabel}</p>
             </motion.div>
           </motion.div>
 
@@ -72,11 +72,11 @@ export const About = ({ content }) => {
             <div className="mt-12 grid grid-cols-2 gap-8">
               <div>
                 <p className="text-primary font-bold mb-1 italic font-serif text-xl">{content.specValue}</p>
-                <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.specLabel}</p>
+                <p className="text-[10px] text-cyber uppercase tracking-widest font-bold">{content.specLabel}</p>
               </div>
               <div>
                 <p className="text-primary font-bold mb-1 italic font-serif text-xl">{content.aspValue}</p>
-                <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.aspLabel}</p>
+                <p className="text-[10px] text-cyber uppercase tracking-widest font-bold">{content.aspLabel}</p>
               </div>
             </div>
           </motion.div>
