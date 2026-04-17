@@ -1,68 +1,86 @@
+import { 
+  RiJavascriptFill, 
+  RiCss3Fill, 
+  RiHtml5Fill 
+} from "react-icons/ri";
+import { 
+  BiLogoReact, 
+  BiLogoTailwindCss, 
+  BiLogoNodejs, 
+  BiLogoPhp,
+  BiLogoPython
+} from "react-icons/bi";
+import { SiMysql, SiGooglecloud, SiFirebase } from "react-icons/si";
 import { motion } from "framer-motion";
-import { FaNodeJs } from "react-icons/fa";
-import { FaPhp } from "react-icons/fa6";
-import { IoLogoFirebase } from "react-icons/io5";
-import { RiReactjsLine } from "react-icons/ri";
-import { SiAndroidstudio, SiMysql } from "react-icons/si";
 
-const skills = [
-  { name: "React", icon: RiReactjsLine, color: "text-cyan-300", level: 78 },
-  { name: "PHP", icon: FaPhp, color: "text-blue-300", level: 80 },
-  { name: "Firebase", icon: IoLogoFirebase, color: "text-orange-300", level: 72 },
-  { name: "Android Studio", icon: SiAndroidstudio, color: "text-emerald-300", level: 70 },
-  { name: "Node.js", icon: FaNodeJs, color: "text-lime-300", level: 74 },
-  { name: "MySQL", icon: SiMysql, color: "text-sky-300", level: 83 },
+const TECH_ICONS = [
+  { icon: <RiHtml5Fill />, name: "HTML5" },
+  { icon: <RiCss3Fill />, name: "CSS3" },
+  { icon: <RiJavascriptFill />, name: "JavaScript" },
+  { icon: <BiLogoPhp />, name: "PHP" },
+  { icon: <BiLogoReact />, name: "React" },
+  { icon: <BiLogoTailwindCss />, name: "Tailwind" },
+  { icon: <SiMysql />, name: "MySQL" },
+  { icon: <BiLogoNodejs />, name: "Node.js" },
+  { icon: <BiLogoPython />, name: "Python" },
+  { icon: <SiGooglecloud />, name: "GCP" },
+  { icon: <SiFirebase />, name: "Firebase" },
 ];
 
-const Technologies = () => {
-  return (
-    <section id="technologies" className="py-8 sm:py-10">
-      <div className="section-shell">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          className="section-title"
-        >
-          Technologies I Use
-        </motion.h2>
-        <p className="section-subtitle">Skill utama yang paling sering saya pakai untuk membangun aplikasi web dan mobile.</p>
+const iconVariants = (duration) => ({
+  initial: { y: -10 },
+  animate: {
+    y: [10, -10],
+    transition: {
+      duration: duration,
+      ease: "linear",
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
+  },
+});
 
-        <div className="mt-7 grid gap-4 md:grid-cols-2">
-          {skills.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.35, delay: index * 0.06 }}
-                whileHover={{ y: -3 }}
-                className="rounded-xl border border-white/15 bg-white/5 p-4"
-              >
-                <div className="mb-3 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="rounded-lg border border-white/10 bg-slate-900/70 p-2">
-                      <Icon className={`text-2xl ${skill.color}`} />
-                    </span>
-                    <p className="font-semibold text-slate-100">{skill.name}</p>
-                  </div>
-                  <span className="text-sm font-semibold text-slate-300">{skill.level}%</span>
-                </div>
-                <div className="h-2 rounded-full bg-slate-700/60">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: index * 0.08 }}
-                    className="h-2 rounded-full bg-gradient-to-r from-amber-300 to-cyan-300"
-                  />
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+const Technologies = ({ content }) => {
+  return (
+    <section id="technologies" className="py-24">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-20"
+      >
+        <span className="text-[10px] font-bold tracking-[0.3em] text-cyber uppercase mb-4 inline-block">{content.sectionLabel}</span>
+        <h2 className="text-4xl md:text-5xl font-serif">{content.title} <span className="italic text-cyber">{content.titleHighlight}</span></h2>
+      </motion.div>
+
+      <div className="flex flex-wrap items-center justify-center gap-6 max-w-5xl mx-auto px-4">
+        {TECH_ICONS.map((tech, index) => (
+          <motion.div
+            key={index}
+            variants={iconVariants(2 + index * 0.5)}
+            initial="initial"
+            animate="animate"
+            className="group relative"
+          >
+            <div className="glass-panel p-6 sm:p-8 flex items-center justify-center group-hover:border-cyber/40 transition-all duration-300">
+              <div className="text-4xl sm:text-6xl transition-all duration-300 group-hover:scale-110 text-primary group-hover:text-cyber">
+                {tech.icon}
+              </div>
+              
+              {/* Tooltip Label */}
+              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <span className="text-[9px] font-bold tracking-widest text-cyber uppercase whitespace-nowrap bg-obsidian px-2 py-1 rounded border border-cyber/20">
+                  {tech.name}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Decorative Line */}
+      <div className="mt-20 flex justify-center opacity-20 pointer-events-none">
+        <div className="w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyber to-transparent" />
       </div>
     </section>
   );

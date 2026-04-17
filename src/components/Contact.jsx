@@ -1,99 +1,116 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiCheck, FiCopy, FiMail, FiMapPin, FiPhoneCall } from "react-icons/fi";
+import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
 import { CONTACT } from "../constants";
 
-export const Contact = () => {
-  const [copied, setCopied] = useState(false);
-
-  const onCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(CONTACT.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
-  };
-
+export const Contact = ({ content }) => {
   return (
-    <section id="contact" className="py-8 sm:py-10">
-      <div className="section-shell">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          className="section-title"
-        >
-          Let&apos;s Connect
-        </motion.h2>
-        <p className="section-subtitle">Siap berdiskusi untuk peluang kerja, project kolaborasi, atau technical interview.</p>
+    <section id="contact" className="py-24 relative overflow-hidden">
+      {/* Background Flare */}
+      <div className="glow-orb -bottom-20 -left-20 bg-solar/10" />
 
-        <div className="mt-7 grid gap-4 md:grid-cols-3">
-          <motion.a
-            href="https://wa.me/6285731643104"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ y: -4 }}
-            className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-emerald-300/50"
-          >
-            <FiPhoneCall className="text-xl text-emerald-200" />
-            <p className="mt-2 text-xs uppercase tracking-wide text-slate-400">Phone / WhatsApp</p>
-            <p className="mt-1 font-semibold text-slate-100">{CONTACT.phoneNo}</p>
-          </motion.a>
-
-          <motion.a
-            href="https://www.google.com/maps/search/?api=1&query=Tegal%2C%20Jawa%20Tengah%2C%20Indonesia"
-            target="_blank"
-            rel="noreferrer"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ delay: 0.08 }}
-            whileHover={{ y: -4 }}
-            className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-cyan-300/50"
-          >
-            <FiMapPin className="text-xl text-cyan-200" />
-            <p className="mt-2 text-xs uppercase tracking-wide text-slate-400">Location</p>
-            <p className="mt-1 font-semibold text-slate-100">{CONTACT.address}</p>
-          </motion.a>
-
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+          
+          {/* Left Side: Editorial Pitch */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ delay: 0.14 }}
-            whileHover={{ y: -4 }}
-            className="rounded-xl border border-white/15 bg-white/5 p-4"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col justify-center"
           >
-            <FiMail className="text-xl text-amber-200" />
-            <p className="mt-2 text-xs uppercase tracking-wide text-slate-400">Email</p>
-            <a href={`mailto:${CONTACT.email}`} className="mt-1 block break-all font-semibold text-slate-100 underline decoration-transparent transition hover:decoration-current">
-              {CONTACT.email}
-            </a>
-            <motion.button
-              type="button"
-              onClick={onCopyEmail}
-              whileTap={{ scale: 0.95 }}
-              className="mt-3 inline-flex items-center gap-1 rounded-md border border-white/20 px-2 py-1 text-xs font-semibold text-slate-200 hover:border-amber-300/50"
-            >
-              {copied ? <FiCheck /> : <FiCopy />}
-              {copied ? "Copied" : "Copy"}
-            </motion.button>
-          </motion.div>
-        </div>
+            <span className="text-[10px] font-bold tracking-[0.3em] text-cyber uppercase mb-6 inline-block">{content.sectionLabel}</span>
+            <h2 className="text-5xl md:text-7xl font-serif leading-tight mb-8">
+              {content.title} <br />
+              <span className="italic text-cyber">{content.titleHighlight}</span>
+            </h2>
+            <p className="text-secondary text-lg leading-relaxed max-w-md mb-12">
+              {content.description}
+            </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ delay: 0.2 }}
-          className="mt-6 rounded-2xl border border-amber-300/30 bg-amber-300/10 p-4 text-center text-sm text-amber-100"
-        >
-          <p>Ingin melihat studi kasus detail, source code, atau demo langsung? Hubungi saya kapan pun.</p>
-        </motion.div>
+            <div className="space-y-6">
+              <div className="flex items-center gap-6 group">
+                <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-cyber group-hover:bg-cyber group-hover:text-obsidian transition-all duration-300">
+                  <FiMail size={18} />
+                </div>
+                <div>
+                  <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.labels.email}</p>
+                  <p className="text-lg font-sans">{CONTACT.email}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-6 group">
+                <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-cyber group-hover:bg-cyber group-hover:text-obsidian transition-all duration-300">
+                  <FiPhone size={18} />
+                </div>
+                <div>
+                  <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.labels.phone}</p>
+                  <p className="text-lg font-sans">{CONTACT.phoneNo}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-6 group">
+                <div className="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-cyber group-hover:bg-cyber group-hover:text-obsidian transition-all duration-300">
+                  <FiMapPin size={18} />
+                </div>
+                <div>
+                  <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.labels.location}</p>
+                  <p className="text-lg font-sans">{CONTACT.address}</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Side: Minimal Form */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="glass-panel p-8 md:p-12 relative"
+          >
+            <form className="space-y-8">
+              <div className="space-y-2">
+                <label className="text-[10px] text-secondary uppercase tracking-widest font-bold ml-1">{content.labels.nameInput}</label>
+                <input 
+                  type="text" 
+                  placeholder={content.labels.namePlaceholder}
+                  className="w-full glass-input rounded-xl px-4 py-4 font-sans focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] text-secondary uppercase tracking-widest font-bold ml-1">{content.labels.emailInput}</label>
+                <input 
+                  type="email" 
+                  placeholder={content.labels.emailPlaceholder}
+                  className="w-full glass-input rounded-xl px-4 py-4 font-sans focus:outline-none transition-colors"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] text-secondary uppercase tracking-widest font-bold ml-1">{content.labels.msgInput}</label>
+                <textarea 
+                  rows={4}
+                  placeholder={content.labels.msgPlaceholder}
+                  className="w-full glass-input rounded-xl px-4 py-4 font-sans focus:outline-none transition-colors resize-none"
+                />
+              </div>
+
+              <button className="cyber-button w-full py-4 flex items-center justify-center gap-3 text-sm uppercase tracking-widest font-bold">
+                <FiSend /> {content.labels.sendBtn}
+              </button>
+            </form>
+          </motion.div>
+
+        </div>
       </div>
+
+      <footer className="mt-24 py-12 border-t border-glass-border">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-[10px] text-secondary uppercase tracking-[0.3em]">
+            © 2024 Yudha Bayu Prastyo — Digital Architect
+          </p>
+        </div>
+      </footer>
     </section>
   );
 };

@@ -1,50 +1,62 @@
 import { motion } from "framer-motion";
-import { EDUCATION } from "../constants";
 
-export const Education = () => {
+const Education = ({ content }) => {
   return (
-    <section id="education" className="py-8 sm:py-10">
-      <div className="section-shell">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+    <section id="education" className="py-24 relative">
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          className="section-title"
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          Education Journey
-        </motion.h2>
+          <span className="text-[10px] font-bold tracking-[0.3em] text-cyber uppercase mb-4 inline-block">{content.sectionLabel}</span>
+          <h2 className="text-4xl md:text-5xl font-serif">{content.title} <span className="italic text-cyber">&</span> {content.titleHighlight}</h2>
+        </motion.div>
 
-        <div className="relative mt-8 space-y-6 before:absolute before:left-2 before:top-2 before:h-[calc(100%-1rem)] before:w-px before:bg-white/20 sm:before:left-3">
-          {EDUCATION.map((item, index) => (
-            <motion.article
+        <div className="space-y-12 relative">
+          {/* Timeline Line */}
+          <div className="absolute left-0 sm:left-1/2 top-0 bottom-0 w-[1px] bg-glass-border -translate-x-1/2 hidden sm:block" />
+
+          {content.items.map((edu, index) => (
+            <motion.div
               key={index}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.06 }}
-              whileHover={{ y: -3 }}
-              className="relative ml-8 rounded-2xl border border-white/15 bg-slate-900/60 p-5"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={`relative flex flex-col sm:flex-row gap-8 ${
+                index % 2 === 0 ? "sm:flex-row-reverse" : ""
+              }`}
             >
-              <motion.span
-                className="absolute -left-[2.05rem] top-6 h-3 w-3 rounded-full border-2 border-slate-950 bg-amber-300"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.15 }}
-              />
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-200">{item.year}</p>
-              <h3 className="mt-2 text-lg font-semibold text-slate-100">{item.place}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.technologies.map((tech) => (
-                  <motion.span
-                    key={tech}
-                    whileHover={{ y: -2 }}
-                    className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-200"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
+              {/* Desktop Center Dot */}
+              <div className="absolute left-1/2 top-0 w-3 h-3 rounded-full bg-cyber -translate-x-1/2 hidden sm:block shadow-[0_0_15px_rgba(0,255,210,0.5)] z-10 mt-2" />
+
+              {/* Content Card */}
+              <div className="sm:w-1/2">
+                <div className={`glass-panel p-8 hover:border-cyber/30 transition-colors duration-500 ${
+                  index % 2 === 0 ? "sm:text-right" : "sm:text-left"
+                }`}>
+                  <span className="text-solar text-sm font-bold tracking-widest mb-2 block">{edu.year}</span>
+                  <h3 className="text-xl font-serif mb-2 italic">{edu.place}</h3>
+                  <p className="text-secondary text-sm leading-relaxed mb-6">
+                    {edu.description}
+                  </p>
+                  <div className={`flex flex-wrap gap-2 ${
+                    index % 2 === 0 ? "sm:justify-end" : "sm:justify-start"
+                  }`}>
+                    {edu.technologies.map((tech, idx) => (
+                      <span key={idx} className="text-[9px] font-bold px-3 py-1 rounded-full bg-onyx border border-glass-border text-primary/70 tracking-tighter uppercase">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </motion.article>
+              
+              {/* Empty space for alignment */}
+              <div className="sm:w-1/2" />
+            </motion.div>
           ))}
         </div>
       </div>

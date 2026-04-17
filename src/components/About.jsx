@@ -1,68 +1,87 @@
 import { motion } from "framer-motion";
-import aboutImg from "../assets/about.jpg";
-import { ABOUT_TEXT } from "../constants";
 
-const highlights = ["Problem solving", "IT Support", "Web Development", "Cloud Enthusiast"];
-
-export const About = () => {
+export const About = ({ content }) => {
   return (
-    <section id="about" className="py-8 sm:py-10">
-      <div className="section-shell grid gap-8 lg:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-          whileHover={{ scale: 1.01 }}
-          className="relative"
-        >
-          <img src={aboutImg} alt="Tentang Yudha" className="h-full min-h-[280px] w-full rounded-2xl border border-white/20 object-cover sm:min-h-[320px]" />
+    <section id="about" className="py-24 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Visual Side */}
           <motion.div
-            className="absolute bottom-3 left-3 right-3 rounded-xl border border-white/20 bg-slate-950/70 px-3 py-2 text-[11px] text-slate-200 backdrop-blur sm:bottom-4 sm:left-4 sm:right-auto sm:px-4 sm:text-xs"
-            animate={{ y: [0, -2, 0] }}
-            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative"
           >
-            Based in Tegal, Indonesia
+            <div className="aspect-square rounded-3xl overflow-hidden glass-panel p-2">
+              <div className="w-full h-full rounded-2xl bg-onyx border border-glass-border flex items-center justify-center relative overflow-hidden">
+                {/* Gradient Accents */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyber via-transparent to-transparent opacity-10" />
+                <div className="absolute inset-0 bg-gradient-to-tl from-solar via-transparent to-transparent opacity-10" />
+                
+                {/* Abstract Architect Pattern */}
+                <div className="absolute inset-0 opacity-[0.03] bg-grid-promax scale-150" />
+                
+                <motion.div 
+                  animate={{ 
+                    rotate: 360
+                  }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-64 h-64 border-[4px] border-cyber border-t-transparent opacity-70 rounded-full border-dashed"
+                />
+                <motion.div 
+                  animate={{ 
+                    rotate: -360
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-48 h-48 border-[4px] border-solar border-b-transparent border-l-transparent opacity-70 rounded-full border-dotted"
+                />
+                <span className="relative z-10 text-6xl font-serif italic text-cyber text-glow select-none font-bold">YB</span>
+              </div>
+            </div>
+            {/* Stats Overlay */}
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="absolute -bottom-6 -right-6 glass-panel p-6 shadow-2xl"
+            >
+              <p className="text-3xl font-serif text-solar font-bold">2024</p>
+              <p className="text-[10px] text-secondary uppercase tracking-[0.2em] font-bold">Alumni</p>
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="section-title">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <p className="section-subtitle leading-relaxed">{ABOUT_TEXT}</p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {highlights.map((point, index) => (
-              <motion.span
-                key={point}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.25, delay: index * 0.06 }}
-                whileHover={{ y: -2 }}
-                className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-200"
-              >
-                {point}
-              </motion.span>
-            ))}
-          </div>
-
+          {/* Text Side */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.35, delay: 0.2 }}
-            className="mt-6 rounded-xl border border-cyan-300/30 bg-cyan-300/10 p-4 text-sm text-cyan-100"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            Fokus saya: membangun solusi yang praktis, stabil, dan mudah dipakai user non-teknis.
+            <h2 className="text-4xl md:text-6xl font-serif mb-8 leading-tight">
+              {content.title} <br />
+              <span className="italic text-cyber">{content.titleHighlight}</span>
+            </h2>
+            <div className="space-y-6 text-secondary text-lg leading-relaxed font-sans">
+              <p>{content.description}</p>
+              <p className="border-l-2 border-cyber/30 pl-6 italic">
+                {content.quote}
+              </p>
+            </div>
+            
+            <div className="mt-12 grid grid-cols-2 gap-8">
+              <div>
+                <p className="text-primary font-bold mb-1 italic font-serif text-xl">{content.specValue}</p>
+                <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.specLabel}</p>
+              </div>
+              <div>
+                <p className="text-primary font-bold mb-1 italic font-serif text-xl">{content.aspValue}</p>
+                <p className="text-[10px] text-secondary uppercase tracking-widest font-bold">{content.aspLabel}</p>
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
+
+        </div>
       </div>
     </section>
   );
